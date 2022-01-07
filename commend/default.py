@@ -28,7 +28,7 @@ def write_log(file="main.log", content="", mod='a+'):
 
     return content
 
-
+# 连续点击某个位置
 def ConOrQuit(click_x, click_y, while_num=8):
     numc = 0
     while numc <= while_num:
