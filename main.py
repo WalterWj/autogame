@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+# 将 commend 加入
+import os
+import sys
+currrent_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(currrent_dir, "commend"))
 
 # 加载自定义函数
 from commend.action import Bells_fighting
@@ -9,12 +14,6 @@ from configparser import ConfigParser
 
 import argparse
 import time
-
-# 将 commend 加入
-import os
-import sys
-currrent_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(currrent_dir, "commend"))
 
 
 def main():
