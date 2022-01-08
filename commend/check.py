@@ -27,7 +27,7 @@ def home_close(**args):
         c_d = color_check(args['continue_x'], args['continue_y'])
         # print("捕获继续位置颜色：{},{},{}".format(x, y, c_d))
         write_log(content="捕获继续位置颜色：{},{},{}".format(
-            args['continue_x'], args['continue_y'], args['c_d']))
+            args['continue_x'], args['continue_y'], c_d))
         # 控制 41 像素连续
         if c_d == args['quit_color_nomal']:
             nc += 1
