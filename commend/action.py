@@ -55,7 +55,8 @@ def Bells_fighting(wc, **args):
             write_log(content='e 位置颜色为：{}'.format(e_cd), **args)
             if e_cd == args['join_color_0'] or e_cd == args['join_color_1']:
                 print("{}: e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
-                    time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(), **args),
+                    time.strftime("%Y-%m-%d %H:%M:%S",
+                                  time.localtime(), **args),
                     args['join_x'], args['join_y'], e_cd))
                 write_log(content="e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
                     args['join_x'], args['join_y'], e_cd), **args)
@@ -114,13 +115,21 @@ def Handling_exceptions(**args):
     return content
 
 # 共斗
+
+
 def Fight_together(wc, **args):
-    # 如果铃铛为 222，说明在房间内
-    bill_color = color_check(args['clock_x'], args['clock_y'])
-    # 铃铛下面位置颜色
-    bill_below_color = color_check(args['clock_below_x'], args['clock_below_y'])
     # 控制循环次数，如果一直没有成功，则退出
     _nc = 0
+    # 如果铃铛为 222，说明在房间内
+    bill_color = color_check(args['clock_x'], args['clock_y'])
+    write_log(content="第 {} 次捕获铃铛颜色: {},{}: {}".format(
+        _nc, args['clock_x'], args['clock_y'], bill_color))
+    # 铃铛下面位置颜色
+    bill_below_color = color_check(
+        args['clock_below_x'], args['clock_below_y'])
+    write_log(content="第 {} 次捕获铃铛颜下面色: {},{}: {}".format(
+        _nc, args['clock_below_x'], args['clock_below_y'], bill_below_color))
+    # 初始化 result 结果
     result = True
     if bill_color != args['clock_color_nomal'] and bill_below_color == args['clock_below_color_nomal']:
         result = False
@@ -139,6 +148,8 @@ def Fight_together(wc, **args):
             time.sleep(3)
             bill_color = color_check(args['clock_x'], args['clock_y'])
             _nc += 1
+            write_log(content="第 {} 次捕获铃铛颜色: {},{}: {}".format(
+                _nc, args['clock_x'], args['clock_y'], bill_color))
 
     # 当正常进入房间后，开始共斗
     if result:
@@ -146,7 +157,12 @@ def Fight_together(wc, **args):
         print("刷图耗时：{}~".format(_time))
 
         # 刷完之后，点击 b 返回房间
-        pyautogui.click(args['continue_x'], args['continue_y'], 8, 1.5)
+        b_d_nc = 0
+        while b_d_nc <= 8:
+            pyautogui.click(args['continue_x'], args['continue_y'])
+            time.sleep(1.5)
+            pyautogui.click(args['prepare_start_x'], args['prepare_start_y'])
+            b_d_nc += 1
 
         wc += 1
 
