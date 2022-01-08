@@ -17,7 +17,7 @@ def Bells_fighting(wc, **args):
     # 铃铛颜色
     a_cd = color_check(x=args['clock_x'], y=args['clock_y'])
     # 铃铛下面的颜色
-    a_cd_below = color_check(args['clock_below_x'], args['clock_below_x'])
+    a_cd_below = color_check(args['clock_below_x'], args['clock_below_y'])
     # print("铃铛颜色:{}".format(a_cd))
     write_log(content="铃铛颜色:{}".format(a_cd), **args)
     # if a_cd != args['clock_color_nomal'] and args[
@@ -118,7 +118,7 @@ def Fight_together(wc, **args):
     # 如果铃铛为 222，说明在房间内
     bill_color = color_check(args['clock_x'], args['clock_y'])
     # 铃铛下面位置颜色
-    bill_below_color = color_check(args['clock_below_x'], args['clock_below_x'])
+    bill_below_color = color_check(args['clock_below_x'], args['clock_below_y'])
     # 控制循环次数，如果一直没有成功，则退出
     _nc = 0
     result = True
