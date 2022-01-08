@@ -9,13 +9,12 @@ import time
 # 获取颜色
 def color_check(x, y):
     # 获取颜色
-    x, y = int(x), int(y)
     pix = pyautogui.pixel(x, y)
     _pix = pix[0]
     # ' Color: ' + str(pix[0])
 
     # 需要返回一个 string 类型，进行比较
-    return str(_pix)
+    return _pix
 
 
 # 写日志
@@ -31,3 +30,14 @@ def write_log(path="log", file="main.log", content="", mod='a+'):
     content = "Write file {}, Contennt: {}".format(file, content)
 
     return content
+
+# 初始化配置文件内容
+def config_set(config):
+    for key in config:
+        try:
+            config[key] = int(config[key])
+        except ValueError:
+            config[key] = config[key]
+    
+    return config
+    

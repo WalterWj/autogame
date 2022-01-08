@@ -9,7 +9,7 @@ sys.path.append(os.path.join(currrent_dir, "commend"))
 
 # 加载自定义函数
 from commend.action import Bells_fighting
-from commend.default import write_log
+from commend.default import write_log, config_set
 from configparser import ConfigParser
 
 import argparse
@@ -30,10 +30,12 @@ def main():
     mode = args.mode
     # 循环次数
     wc = 0
-    # 配置项
+    # 配置项初始化
     cfg = ConfigParser()
     cfg.read(args.config, encoding='utf-8')
     main_config = dict(cfg.items("main"))
+    main_config = config_set(main_config)
+
     while True:
         if mode == "main":
             wc = Bells_fighting(wc, **main_config)
