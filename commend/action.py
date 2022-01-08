@@ -123,12 +123,12 @@ def Fight_together(wc, **args):
     # 如果铃铛为 222，说明在房间内
     bill_color = color_check(args['clock_x'], args['clock_y'])
     write_log(content="第 {} 次捕获铃铛颜色: {},{}: {}".format(
-        _nc, args['clock_x'], args['clock_y'], bill_color))
+        _nc, args['clock_x'], args['clock_y'], bill_color, **args))
     # 铃铛下面位置颜色
     bill_below_color = color_check(
         args['clock_below_x'], args['clock_below_y'])
     write_log(content="第 {} 次捕获铃铛颜下面色: {},{}: {}".format(
-        _nc, args['clock_below_x'], args['clock_below_y'], bill_below_color))
+        _nc, args['clock_below_x'], args['clock_below_y'], bill_below_color, **args))
     # 初始化 result 结果
     result = True
     if bill_color != args['clock_color_nomal'] and bill_below_color == args['clock_below_color_nomal']:
@@ -149,7 +149,7 @@ def Fight_together(wc, **args):
             bill_color = color_check(args['clock_x'], args['clock_y'])
             _nc += 1
             write_log(content="第 {} 次捕获铃铛颜色: {},{}: {}".format(
-                _nc, args['clock_x'], args['clock_y'], bill_color))
+                _nc, args['clock_x'], args['clock_y'], bill_color, **args))
 
     # 当正常进入房间后，开始共斗
     if result:
