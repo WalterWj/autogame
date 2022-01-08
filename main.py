@@ -3,22 +3,11 @@
 
 import time
 import argparse
-import os
-# import pyautogui
-import sys
 from configparser import ConfigParser
 # 加载自定义函数
 from commend.default import write_log
 from commend.action import Bells_fighting
 
-# cfg = ConfigParser()
-# cfg.read('config.ini')
-# # 获取 string 类型
-# clock = cfg.get('main', 'clock')
-# print(clock)
-# # 获取 int 类型
-# clock = cfg.getint('main', 'clock_color')
-# print(clock)
 
 def main():
     args = parse_args()
