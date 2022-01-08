@@ -80,7 +80,7 @@ def Bells_fighting(wc, **args):
             print("auto game: {} 次成功".format(wc))
     elif a_cd == 222:
         write_log(content="没有铃铛,已经刷了 {} 次".format(wc), **args)
-    elif a_cd == 225:
+    elif a_cd == 255:
         pyautogui.click(args['continue_x'],args['continue_y'], 3, 1.5)
     else:
         print("{} 铃铛异常，准备修复~".format(
@@ -104,7 +104,7 @@ def Handling_exceptions(**args):
     pyautogui.click(args['quit_x'], args['quit_y'])
     time.sleep(2)
     # 点击两次 f
-    pyautogui.click(args['pl_x'], args['pl_y'], 2, 2)
+    # pyautogui.click(args['pl_x'], args['pl_y'], 2, 2)
     # 点击主目录 尝试恢复
     time.sleep(2)
     pyautogui.click(args['main_x'], args['main_y'])
