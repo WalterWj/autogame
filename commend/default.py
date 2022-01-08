@@ -37,10 +37,7 @@ def config_set(config, distance=0):
         try:
             config[key] = int(config[key]) - distance * 596
         except ValueError:
-            config[key] = config[key]
-
-    # 配置日志名
-    config["logfile"] = config["logfile"] + str(distance)
+            config[key] = eval(config[key])
     
     return config
 
@@ -50,7 +47,9 @@ def parser_set(config_file="config.ini", distance=0):
     cfg.read(config_file, encoding='utf-8')
     main_config = dict(cfg.items("main"))
     main_config = config_set(main_config, distance)
-    log_config = dict(cfg.items("log"))
+    log_config = config_set(dict(cfg.items("log")))
+    # 配置日志名
+    log_config["logfile"] = "{}{}".format(log_config["logfile"],distance)
     config = {**main_config, **log_config}
 
     return main_config, log_config, config

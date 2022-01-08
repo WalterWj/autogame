@@ -25,6 +25,7 @@ def main():
     main_config, log_config, config = parser_set(args.config, args.distance)
 
     # 清理日志
+    print(log_config)
     write_log(content="清空日志", mod='w+', **log_config)
     local_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     print("Wait 1s start!")
