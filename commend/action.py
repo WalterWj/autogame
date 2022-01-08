@@ -126,8 +126,10 @@ def Fight_together(wc, **args):
         result = False
     else:
         while bill_color == args['clock_color_nomal']:
-            # 循环点击 d，开始共斗
+            # 循环点击 b, d，开始共斗
             pyautogui.click(args['prepare_start_x'], args['prepare_start_y'])
+            time.sleep(1)
+            pyautogui.click(args['continue_x'], args['continue_y'])
             if _nc <= 20:
                 result = True
             else:
