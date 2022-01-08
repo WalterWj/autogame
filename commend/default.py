@@ -4,7 +4,7 @@
 import pyautogui
 import os
 import time
-
+from configparser import ConfigParser
 
 # 获取颜色
 def color_check(x, y):
@@ -18,8 +18,8 @@ def color_check(x, y):
 
 
 # 写日志
-def write_log(path="log", file="main.log", content="", mod='a+'):
-    file = os.path.join(path, file)
+def write_log(logpath="log", logfile="main.log", content="", mod='a+'):
+    file = os.path.join(logpath, logfile)
     # 添加时间
     content = time.strftime("%Y-%m-%d %H:%M:%S",
                             time.localtime()) + ": " + content + "\n"
@@ -27,17 +27,30 @@ def write_log(path="log", file="main.log", content="", mod='a+'):
     with open(file, mod, encoding='utf-8') as f:
         f.write(content)
 
-    content = "Write file {}, Contennt: {}".format(file, content)
+    content = "Write file {}, Contennt: {}".format(logfile, content)
 
     return content
 
 # 初始化配置文件内容
-def config_set(config):
+def config_set(config, distance=0):
     for key in config:
         try:
-            config[key] = int(config[key])
+            config[key] = int(config[key]) - distance
         except ValueError:
             config[key] = config[key]
+
+    # 配置日志名
+    config["logfile"] = config["logfile"] + str(distance)
     
     return config
-    
+
+# 初始化参数
+def parser_set(config_file="config.ini", distance=0):
+    cfg = ConfigParser()
+    cfg.read(config_file, encoding='utf-8')
+    main_config = dict(cfg.items("main"))
+    main_config = config_set(main_config, distance)
+    log_config = dict(cfg.items("log"))
+    config = {**main_config, **log_config}
+
+    return main_config, log_config, config

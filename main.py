@@ -10,7 +10,6 @@ sys.path.append(os.path.join(currrent_dir, "commend"))
 # 加载自定义函数
 from commend.action import Bells_fighting
 from commend.default import write_log, config_set
-from configparser import ConfigParser
 
 import argparse
 import time
@@ -18,27 +17,25 @@ import time
 
 def main():
     args = parse_args()
-    # 清理日志
-    write_log(content="清空日志", mod='w+')
-    local_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-    print("Wait 1s start!")
-    time.sleep(1)
-    print("Ctrl + c 可以退出脚本~")
-    print("{}: 开始游戏".format(local_time))
-    write_log(content="=======================开始游戏=======================")
     # 游戏模式
     mode = args.mode
     # 循环次数
     wc = 0
     # 配置项初始化
-    cfg = ConfigParser()
-    cfg.read(args.config, encoding='utf-8')
-    main_config = dict(cfg.items("main"))
-    main_config = config_set(main_config)
+    main_config, log_config, config = config_set(args.config, args.distance)
+
+    # 清理日志
+    write_log(content="清空日志", mod='w+', **log_config)
+    local_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    print("Wait 1s start!")
+    time.sleep(1)
+    print("Ctrl + c 可以退出脚本~")
+    print("{}: 开始游戏".format(local_time))
+    write_log(content="=======================开始游戏=======================", **log_config)
 
     while True:
         if mode == "main":
-            wc = Bells_fighting(wc, **main_config)
+            wc = Bells_fighting(wc, **config)
         else:
             print("请输入 [''/pl/gd]~ ")
             break
@@ -58,6 +55,10 @@ def parse_args():
                         dest="mode",
                         help="Play game's mode",
                         default="main")
+    parser.add_argument("-d",
+                        dest="distance",
+                        help="Play game's num",
+                        default=0)
 
     args = parser.parse_args()
 
