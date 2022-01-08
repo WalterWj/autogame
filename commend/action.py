@@ -5,11 +5,13 @@ import pyautogui, time
 from default import *
 from check import home_close
 
-# 异常处理
-
 
 # 蹭铃铛
 # wc: 共斗次数
+# args['clock_x']，args['clock_y']: 铃铛位置
+# args['clock_color_nomal']：铃铛正常颜色
+# args['clock_color_action_l']，args['clock_color_action_h']：有铃铛时颜色，范围值
+# args['join_x']，args['join_y']: e: 参加按钮
 def Bells_fighting(wc, **args):
     # 铃铛颜色
     a_cd = color_check(x=args['clock_x'], y=args['clock_y'])
@@ -29,103 +31,77 @@ def Bells_fighting(wc, **args):
         time.sleep(2)
         # 查看 g 点位置，判断是否异常
         # 如果判断 g 位置异常，认为进入游戏失败，退出循环，开始下一局
-        g_cd = color_check(x=1602, y=682)
+        g_cd = color_check(args['cancel_x'], args['cancel_y'])
         # print("g 位颜色：", g_cd)
-        write_log(content="g 位颜色,x=1602, y=682：{}".format(g_cd))
-        if g_cd == 24 or g_cd == 41:
+        write_log(content="g 位颜色,x={}, y={} ：{}".format(
+            args['cancel_x'], args['cancel_y'], g_cd))
+        if g_cd == args["cancel_color_0"] or g_cd == args["cancel_color_0"]:
             pyautogui.press('g')
-            print("发现 g 位颜色异常，不进入游戏~,x=1602, y=682")
-            write_log(content="发现 g 位颜色异常，不进入游戏~,x=1602, y=682")
+            print("发现 g 位颜色异常，不进入游戏~,x={}, y={}".format(
+                args['cancel_x'], args['cancel_y']))
+            write_log(content="发现 g 位颜色异常，不进入游戏~,x={}, y={}".format(
+                args['cancel_x'], args['cancel_y']))
             # 点击 e 进入正常状态
-            time.sleep(1)
-            pyautogui.press('e')
-            time.sleep(2)
-            pyautogui.press('e')
-            time.sleep(10)
+            pyautogui.click(args['join_x'], args['join_y'], 2, 1.5)
+            time.sleep(5)
         else:
-            # time.sleep(1)
-            # 点击参加 -- e
-            # pyautogui.press('e')
-            # 点击空白处 防止意外
-            # pyautogui.click(1878, y=822)
-            time.sleep(2)
-            # 避免进入房间查看奖励，点击 f 关闭
-            # pyautogui.press('f')
-            # time.sleep(1)
+            time.sleep(3)
             # 判断 e 点击参加，是否误操作，将自动铃铛关闭了
-            e_cd = color_check(1725, 889)
+            e_cd = color_check(args['join_x'], args['join_y'])
             write_log(content='e 位置颜色为：{}'.format(e_cd))
-            if e_cd == 74 or e_cd == 66:
-                print("{}: e 位置异常，可能铃铛关闭，进行修复，1725, 889 位置颜色为：{}".format(
+            if e_cd == args['join_color_0'] or e_cd == args['join_color_1']:
+                print("{}: e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
                     time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-                    e_cd))
-                write_log(content="e 位置异常，可能铃铛关闭，进行修复，1725, 889 位置颜色为：{}".
-                          format(e_cd))
+                    args['join_x'], args['join_y'], e_cd))
+                write_log(content="e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
+                    args['join_x'], args['join_y'], e_cd))
                 # 再点击 e ，开启铃铛
-                pyautogui.press('e')
+                pyautogui.click(args['join_x'], args['join_y'], 1)
                 # 点击空白进入游戏
-                pyautogui.click(x=1878, y=822)
+                pyautogui.click(args['click_none_x'], args['click_none_x'])
             time.sleep(1)
             # 准备队伍
-            pyautogui.press('d')
+            pyautogui.click(args['prepare_start_x'], args['prepare_start_y'])
             # 等待房间内刷完
-            home_close(x=1542, y=957)
-            # 切换到模拟器
-            pyautogui.click(x=1371, y=22)
-            # 点击继续，进入下一步
-            _nc = 0
-            while _nc <= 8:
-                pyautogui.press('c')
-                time.sleep(1)
-                _nc += 1
-            # pyautogui.press('c')
-            # time.sleep(2)
-            # pyautogui.press('c')
-            # # 过 7s 动画 -- c （异常下点击 g）
-            # time.sleep(7)
-            # pyautogui.press('c')
-            # 如果异常下点击 g
-            # 查看 g 点位置，判断是否异常
-            # 如果判断 g 位置异常，认为进入游戏失败，退出循环，开始下一局
+            home_close(**args)
+            # 点击继续，进入下一步，退出房间
+            pyautogui.click(args['quit_x'], args['quit_x'], 8, 1)
             time.sleep(1)
-            g_cd = color_check(x=1602, y=682)
-            write_log(content="g 位颜色：{}".format(g_cd))
-            if 410 <= g_cd <= 420:
-                time.sleep(3)
-                pyautogui.press('g')
-                print("g 位颜色：{}, 发现异常，点击 g".format(g_cd))
-                write_log(content="g 位颜色：{}, 发现异常，点击 g".format(g_cd))
-            # 离开房间 -- c
-            time.sleep(4)
+            # 次数统计
             wc += 1
-            pyautogui.press('c')
-            time.sleep(1.5)
-            pyautogui.press('c')
             print("auto game: {} 次成功".format(wc))
     elif a_cd == 222:
-        # print("没有铃铛,已经刷了 {} 次".format(wc))
         write_log(content="没有铃铛,已经刷了 {} 次".format(wc))
     else:
-        print("{} 铃铛异常，准备修复~".format(local_time))
+        print("{} 铃铛异常，准备修复~".format(
+            time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())))
         write_log(content="铃铛异常，准备修复~")
-        pyautogui.click(x=1371, y=22)
-        time.sleep(1)
-        # 点击主目录 尝试恢复
-        pyautogui.click(x=1466, y=978)
-        # 点击 g, c 尝试恢复
-        time.sleep(2)
-        pyautogui.press('g')
-        time.sleep(2)
-        pyautogui.press('c')
-        time.sleep(2)
-        pyautogui.press('f')
-        pyautogui.press('f')
-        # 点击主目录 尝试恢复
-        time.sleep(2)
-        pyautogui.click(x=1466, y=978)
-        # 点击空白 尝试恢复
-        pyautogui.click(x=1835, y=822)
-        pyautogui.press('c')
-        pyautogui.press('c')
+        Handling_exceptions(**args)
 
     return wc
+
+
+# 异常处理
+def Handling_exceptions(**args):
+    # pyautogui.click(x=1371, y=22)
+    time.sleep(1)
+    # 点击主目录 尝试恢复
+    pyautogui.click(args['main_x'], args['main_y'])
+    # 点击 g, c 尝试恢复
+    time.sleep(2)
+    pyautogui.click(args['cancel_x'], args['cancel_y'])
+    time.sleep(2)
+    pyautogui.click(args['quit_x'], args['quit_y'])
+    time.sleep(2)
+    # 点击两次 f
+    pyautogui.click(args['pl_x'], args['pl_y'], 2, 1.5)
+    # 点击主目录 尝试恢复
+    time.sleep(2)
+    pyautogui.click(args['main_x'], args['main_y'])
+    # 点击空白 尝试恢复 click_none_x
+    pyautogui.click(args['click_none_x'], args['click_none_y'])
+    pyautogui.click(args['quit_x'], args['quit_y'], 2, 1.5)
+
+    content = "异常处理完成"
+
+    return content

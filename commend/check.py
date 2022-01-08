@@ -71,3 +71,5 @@ def home_close(**args):
     write_log(content="--- cost {} seconds ---".format((time.time() -
                                                         start_time)))
 
+    # 返回耗时
+    return 3 * wc

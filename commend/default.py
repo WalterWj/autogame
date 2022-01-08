@@ -11,12 +11,13 @@ def color_check(x, y):
     _pix = pix[0]
     # ' Color: ' + str(pix[0])
 
-    return _pix
+    # 需要返回一个 string 类型，进行比较
+    return str(_pix)
 
 
 # 写日志
-def write_log(file="main.log", content="", mod='a+'):
-    file = os.path.join("log", file)
+def write_log(path="log",file="main.log", content="", mod='a+'):
+    file = os.path.join(path, file)
     # 添加时间
     content = time.strftime("%Y-%m-%d %H:%M:%S",
                             time.localtime()) + ": " + content + "\n"
@@ -25,19 +26,6 @@ def write_log(file="main.log", content="", mod='a+'):
         f.write(content)
 
     content = "Write file {}, Contennt: {}".format(file, content)
-
-    return content
-
-# 连续点击某个位置
-def ConOrQuit(click_x, click_y, while_num=8):
-    numc = 0
-    while numc <= while_num:
-        numc += 1
-        time.sleep(1.5)
-        pyautogui.click(x=click_x, y=click_y)
-
-    content = "点击 x:{},y:{} {} 次, 耗时 {}s".format(click_x, click_y, while_num,
-                                                 while_num * 1.5)
 
     return content
 
