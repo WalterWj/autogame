@@ -35,7 +35,7 @@ def write_log(logpath="log", logfile="main.log", content="", mod='a+'):
 def config_set(config, distance=0):
     for key in config:
         try:
-            config[key] = int(config[key]) - distance * 596
+            config[key] = int(config[key]) - int(distance) * 596
         except ValueError:
             config[key] = config[key]
 
