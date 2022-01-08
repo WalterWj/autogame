@@ -32,7 +32,7 @@ def main():
     wc = 0
     # 配置项
     cfg = ConfigParser()
-    cfg.read(args.config)
+    cfg.read(args.config, encoding='utf-8')
     main_config = dict(cfg.items("main"))
     while True:
         if mode == "main":

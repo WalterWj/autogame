@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import pyautogui, time
+import pyautogui
+import time
 from default import color_check, write_log
 from check import home_close
 
@@ -105,4 +106,3 @@ def Handling_exceptions(**args):
     content = "异常处理完成"
 
     return content
-    

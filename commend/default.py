@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import pyautogui, os, time
+import pyautogui
+import os
+import time
 
 
 # 获取颜色
 def color_check(x, y):
     # 获取颜色
+    x, y = int(x), int(y)
     pix = pyautogui.pixel(x, y)
     _pix = pix[0]
     # ' Color: ' + str(pix[0])
@@ -16,7 +19,7 @@ def color_check(x, y):
 
 
 # 写日志
-def write_log(path="log",file="main.log", content="", mod='a+'):
+def write_log(path="log", file="main.log", content="", mod='a+'):
     file = os.path.join(path, file)
     # 添加时间
     content = time.strftime("%Y-%m-%d %H:%M:%S",
@@ -28,4 +31,3 @@ def write_log(path="log",file="main.log", content="", mod='a+'):
     content = "Write file {}, Contennt: {}".format(file, content)
 
     return content
-
