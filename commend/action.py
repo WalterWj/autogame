@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import pyautogui, time
-from default import *
+from default import color_check, write_log
 from check import home_close
 
 

@@ -1,12 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import time
-import argparse
-from configparser import ConfigParser
+
 # 加载自定义函数
-from commend.default import write_log
 from commend.action import Bells_fighting
+from commend.default import write_log
+from configparser import ConfigParser
+
+import argparse
+import time
+
+# 将 commend 加入
+import os
+import sys
+currrent_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(currrent_dir, "commend"))
 
 
 def main():
@@ -29,7 +37,7 @@ def main():
     main_config = dict(cfg.items("main"))
     while True:
         if mode == "main":
-            wc = Bells_fighting(wc,**main_config)
+            wc = Bells_fighting(wc, **main_config)
         else:
             print("请输入 [''/pl/gd]~ ")
             break
@@ -37,7 +45,6 @@ def main():
         # 6s 循环检查铃铛变化
         time.sleep(6)
 
-        
 
 def parse_args():
     # Incoming parameters
@@ -54,6 +61,7 @@ def parse_args():
     args = parser.parse_args()
 
     return args
+
 
 if __name__ == '__main__':
     main()
