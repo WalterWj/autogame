@@ -18,8 +18,8 @@ def color_check(x, y):
 
 
 # 写日志
-def write_log(logpath="log", logfile="main.log", content="", mod='a+'):
-    file = os.path.join(logpath, logfile)
+def write_log(content="", mod='a+', **args):
+    file = os.path.join(args['logpath'], args['logfile'])
     # 添加时间
     content = time.strftime("%Y-%m-%d %H:%M:%S",
                             time.localtime()) + ": " + content + "\n"
@@ -27,7 +27,7 @@ def write_log(logpath="log", logfile="main.log", content="", mod='a+'):
     with open(file, mod, encoding='utf-8') as f:
         f.write(content)
 
-    content = "Write file {}, Contennt: {}".format(logfile, content)
+    content = "Write file {}, Contennt: {}".format(args['logfile'], content)
 
     return content
 
@@ -35,7 +35,7 @@ def write_log(logpath="log", logfile="main.log", content="", mod='a+'):
 def config_set(config, distance=0):
     for key in config:
         try:
-            config[key] = int(config[key]) - distance * 596
+            config[key] = int(config[key]) - int(distance) * 596
         except ValueError:
             config[key] = eval(config[key])
     

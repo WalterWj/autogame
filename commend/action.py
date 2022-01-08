@@ -113,7 +113,7 @@ def Handling_exceptions(**args):
 # 共斗
 def Fight_together(wc, **args):
     # 如果铃铛为 222，说明在房间内
-    bill_color = color_check(args['clock_x'], args['clock_x'])
+    bill_color = color_check(args['clock_x'], args['clock_y'])
     # 控制循环次数，如果一直没有成功，则退出
     _nc = 0
     while bill_color == args['clock_color_nomal']:
@@ -125,7 +125,7 @@ def Fight_together(wc, **args):
             result = False
         # 重新获取铃铛颜色
         time.sleep(3)
-        bill_color = color_check(args['clock_x'], args['clock_x'])
+        bill_color = color_check(args['clock_x'], args['clock_y'])
         _nc += 1
 
     # 当正常进入房间后，开始共斗
@@ -134,7 +134,7 @@ def Fight_together(wc, **args):
         print("刷图耗时：{}~".format(_time))
 
         # 刷完之后，点击 b 返回房间
-        pyautogui.click(args['continue_x'], args['continue_x'], 8, 1.5)
+        pyautogui.click(args['continue_x'], args['continue_y'], 8, 1.5)
 
         wc += 1
 
