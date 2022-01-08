@@ -24,10 +24,10 @@ def home_close(**args):
         # 3s 检查一次
         time.sleep(3)
         # 控制时间，如果超过一定时间也会 break
-        c_d = color_check(args['continue_x'], args['continue_y'])
+        c_d = color_check(args['quit_x'], args['quit_y'])
         # print("捕获继续位置颜色：{},{},{}".format(x, y, c_d))
         write_log(content="捕获继续位置颜色：{},{},{}".format(
-            args['continue_x'], args['continue_y'], c_d))
+            args['quit_x'], args['quit_y'], c_d))
         # 控制 41 像素连续
         if c_d == args['quit_color_nomal']:
             nc += 1
