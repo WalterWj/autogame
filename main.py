@@ -8,7 +8,7 @@ currrent_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(currrent_dir, "commend"))
 
 # 加载自定义函数
-from commend.action import Bells_fighting
+from commend.action import Bells_fighting, Fight_together
 from commend.default import write_log, config_set
 
 import argparse
@@ -36,8 +36,14 @@ def main():
     while True:
         if mode == "main":
             wc = Bells_fighting(wc, **config)
+        elif mode == "gd":
+            wc, result = Fight_together(wc, **config)
+            if result:
+                pass
+            else:
+                mode = "main"
         else:
-            print("请输入 [''/pl/gd]~ ")
+            print("请输入 [''/gd]~ ")
             break
 
         # 6s 循环检查铃铛变化
