@@ -9,7 +9,7 @@ sys.path.append(os.path.join(currrent_dir, "commend"))
 
 # 加载自定义函数
 from commend.action import Bells_fighting, Fight_together
-from commend.default import write_log, config_set
+from commend.default import write_log, parser_set
 
 import argparse
 import time
@@ -22,7 +22,7 @@ def main():
     # 循环次数
     wc = 0
     # 配置项初始化
-    main_config, log_config, config = config_set(args.config, args.distance)
+    main_config, log_config, config = parser_set(args.config, args.distance)
 
     # 清理日志
     write_log(content="清空日志", mod='w+', **log_config)
