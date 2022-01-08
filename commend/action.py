@@ -116,6 +116,7 @@ def Fight_together(wc, **args):
     bill_color = color_check(args['clock_x'], args['clock_y'])
     # 控制循环次数，如果一直没有成功，则退出
     _nc = 0
+    result = True
     while bill_color == args['clock_color_nomal']:
         # 循环点击 d，开始共斗
         pyautogui.click(args['prepare_start_x'], args['prepare_start_y'])

@@ -35,7 +35,11 @@ def write_log(content="", mod='a+', **args):
 def config_set(config, distance=0):
     for key in config:
         try:
-            config[key] = int(config[key]) - int(distance) * 596
+            # key 以 _x 结尾需要处理
+            if key.endswith('_x'):
+                config[key] = int(config[key]) - int(distance) * 596
+            else:
+                config[key] = int(config[key])
         except ValueError:
             config[key] = eval(config[key])
     
