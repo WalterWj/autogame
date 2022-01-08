@@ -16,10 +16,13 @@ from check import home_close
 def Bells_fighting(wc, **args):
     # 铃铛颜色
     a_cd = color_check(x=args['clock_x'], y=args['clock_y'])
+    # 铃铛下面的颜色
+    a_cd_below = color_check(args['clock_below_x'], args['clock_below_x'])
     # print("铃铛颜色:{}".format(a_cd))
     write_log(content="铃铛颜色:{}".format(a_cd), **args)
-    if a_cd != args['clock_color_nomal'] and args[
-            'clock_color_action_l'] <= a_cd <= args['clock_color_action_h']:
+    # if a_cd != args['clock_color_nomal'] and args[
+    #         'clock_color_action_l'] <= a_cd <= args['clock_color_action_h']:
+    if a_cd != args['clock_color_nomal'] and a_cd_below == args['clock_below_color_nomal']:
         # 点击铃铛进入房间
         pyautogui.click(x=args['clock_x'], y=args['clock_y'])
         # pyautogui.press('a')
@@ -114,20 +117,25 @@ def Handling_exceptions(**args):
 def Fight_together(wc, **args):
     # 如果铃铛为 222，说明在房间内
     bill_color = color_check(args['clock_x'], args['clock_y'])
+    # 铃铛下面为
     # 控制循环次数，如果一直没有成功，则退出
     _nc = 0
     result = True
-    while bill_color == args['clock_color_nomal']:
-        # 循环点击 d，开始共斗
-        pyautogui.click(args['prepare_start_x'], args['prepare_start_y'])
-        if _nc <= 20:
-            result = True
-        else:
-            result = False
-        # 重新获取铃铛颜色
-        time.sleep(3)
-        bill_color = color_check(args['clock_x'], args['clock_y'])
-        _nc += 1
+    if bill_color != args['clock_color_nomal'] and args[
+            'clock_color_action_l'] <= bill_color <= args['clock_color_action_h']:
+        result = False
+    else:
+        while bill_color == args['clock_color_nomal']:
+            # 循环点击 d，开始共斗
+            pyautogui.click(args['prepare_start_x'], args['prepare_start_y'])
+            if _nc <= 20:
+                result = True
+            else:
+                result = False
+            # 重新获取铃铛颜色
+            time.sleep(3)
+            bill_color = color_check(args['clock_x'], args['clock_y'])
+            _nc += 1
 
     # 当正常进入房间后，开始共斗
     if result:
