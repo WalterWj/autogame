@@ -117,12 +117,12 @@ def Handling_exceptions(**args):
 def Fight_together(wc, **args):
     # 如果铃铛为 222，说明在房间内
     bill_color = color_check(args['clock_x'], args['clock_y'])
-    # 铃铛下面为
+    # 铃铛下面位置颜色
+    bill_below_color = color_check(args['clock_below_x'], args['clock_below_x'])
     # 控制循环次数，如果一直没有成功，则退出
     _nc = 0
     result = True
-    if bill_color != args['clock_color_nomal'] and args[
-            'clock_color_action_l'] <= bill_color <= args['clock_color_action_h']:
+    if bill_color != args['clock_color_nomal'] and bill_below_color == args['clock_below_color_nomal']:
         result = False
     else:
         while bill_color == args['clock_color_nomal']:
