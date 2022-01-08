@@ -52,7 +52,7 @@ def Bells_fighting(wc, **args):
             time.sleep(3)
             # 判断 e 点击参加，是否误操作，将自动铃铛关闭了
             e_cd = color_check(args['join_x'], args['join_y'])
-            write_log(content='e 位置颜色为：{}'.format(e_cd))
+            write_log(content='e 位置颜色为：{}'.format(e_cd), **args)
             if e_cd == args['join_color_0'] or e_cd == args['join_color_1']:
                 print("{}: e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
                     time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(), **args),
