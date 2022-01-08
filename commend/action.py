@@ -132,6 +132,7 @@ def Fight_together(wc, **args):
                 result = True
             else:
                 result = False
+                break
             # 重新获取铃铛颜色
             time.sleep(3)
             bill_color = color_check(args['clock_x'], args['clock_y'])
