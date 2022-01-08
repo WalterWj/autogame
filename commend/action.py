@@ -57,16 +57,18 @@ def Bells_fighting(wc, **args):
                 write_log(content="e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
                     args['join_x'], args['join_y'], e_cd))
                 # 再点击 e ，开启铃铛
-                pyautogui.click(args['join_x'], args['join_y'], 1)
+                pyautogui.click(args['join_x'], args['join_y'])
+                time.sleep(1)
                 # 点击空白进入游戏
-                pyautogui.click(args['click_none_x'], args['click_none_x'])
+                pyautogui.click(args['click_none_x'], args['click_none_y'])
             time.sleep(1)
             # 准备队伍
             pyautogui.click(args['prepare_start_x'], args['prepare_start_y'])
             # 等待房间内刷完
             home_close(**args)
-            # 点击继续，进入下一步，退出房间
-            pyautogui.click(args['quit_x'], args['quit_x'], 8, 1)
+            time.sleep(3)
+            # 点击 8 次退出，退出房间
+            pyautogui.click(args['quit_x'], args['quit_y'], 8, 1)
             time.sleep(1)
             # 次数统计
             wc += 1
@@ -95,13 +97,13 @@ def Handling_exceptions(**args):
     pyautogui.click(args['quit_x'], args['quit_y'])
     time.sleep(2)
     # 点击两次 f
-    pyautogui.click(args['pl_x'], args['pl_y'], 2, 1.5)
+    pyautogui.click(args['pl_x'], args['pl_y'], 2, 2)
     # 点击主目录 尝试恢复
     time.sleep(2)
     pyautogui.click(args['main_x'], args['main_y'])
     # 点击空白 尝试恢复 click_none_x
     pyautogui.click(args['click_none_x'], args['click_none_y'])
-    pyautogui.click(args['quit_x'], args['quit_y'], 2, 1.5)
+    pyautogui.click(args['quit_x'], args['quit_y'], 2, 2)
 
     content = "异常处理完成"
 
