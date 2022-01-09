@@ -8,7 +8,7 @@ currrent_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(currrent_dir, "commend"))
 
 # 加载自定义函数
-from commend.action import Bells_fighting, Fight_together
+from commend.action import Bells_fighting, Fight_together, Clean_pl
 from commend.default import write_log, parser_set
 
 import argparse
@@ -42,12 +42,18 @@ def main():
                 pass
             else:
                 mode = "main"
+        elif mode == "pl":
+            wc, result = Clean_pl(wc, **config)
+            if result:
+                pass
+            else:
+                mode = "main"
         else:
-            print("请输入 [''/gd]~ ")
+            print("请输入 [''/gd/pl]~ ")
             break
 
         # 6s 循环检查铃铛变化
-        time.sleep(6)
+        time.sleep(4)
 
 
 def parse_args():

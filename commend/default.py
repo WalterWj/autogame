@@ -42,8 +42,20 @@ def config_set(config, distance=0):
                 config[key] = int(config[key])
         except ValueError:
             config[key] = eval(config[key])
-    
+
     return config
+
+# 循环点击一个位置
+def click_num(x, y, num=8, duration=1):
+    _num = 0
+    while _num < num:
+        pyautogui.click(x, y)
+        time.sleep(duration)
+        _num += 1
+
+    content = "执行成功:{},{} {} 次".format(x, y, num)
+
+    return content
 
 # 初始化参数
 def parser_set(config_file="config.ini", distance=0):
@@ -53,7 +65,7 @@ def parser_set(config_file="config.ini", distance=0):
     main_config = config_set(main_config, distance)
     log_config = config_set(dict(cfg.items("log")))
     # 配置日志名
-    log_config["logfile"] = "{}{}".format(log_config["logfile"],distance)
+    log_config["logfile"] = "{}{}".format(log_config["logfile"], distance)
     config = {**main_config, **log_config}
 
     return main_config, log_config, config

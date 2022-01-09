@@ -3,7 +3,7 @@
 
 import pyautogui
 import time
-from default import color_check, write_log
+from default import color_check, write_log, click_num
 from check import home_close
 
 
@@ -32,7 +32,7 @@ def Bells_fighting(wc, **args):
         # 点击参加 -- e
         # pyautogui.press('e')
         pyautogui.click(x=args['join_x'], y=args['join_y'])
-        time.sleep(2)
+        time.sleep(3)
         # 查看 g 点位置，判断是否异常
         # 如果判断 g 位置异常，认为进入游戏失败，退出循环，开始下一局
         g_cd = color_check(args['cancel_x'], args['cancel_y'])
@@ -46,7 +46,7 @@ def Bells_fighting(wc, **args):
             write_log(content="发现 g 位颜色异常，不进入游戏~,x={}, y={}".format(
                 args['cancel_x'], args['cancel_y']), **args)
             # 点击 e 进入正常状态
-            pyautogui.click(args['join_x'], args['join_y'], 2, 1.5)
+            click_num(args['join_x'], args['join_y'], 1)
             time.sleep(5)
         else:
             time.sleep(3)
@@ -73,7 +73,7 @@ def Bells_fighting(wc, **args):
             print("刷图耗时：{}~".format(_time))
             time.sleep(3)
             # 点击 8 次退出，退出房间
-            pyautogui.click(args['quit_x'], args['quit_y'], 8, 1)
+            click_num(args['quit_x'], args['quit_y'], 8)
             time.sleep(1)
             # 次数统计
             wc += 1
@@ -81,7 +81,7 @@ def Bells_fighting(wc, **args):
     elif a_cd == 222:
         write_log(content="没有铃铛,已经刷了 {} 次".format(wc), **args)
     elif a_cd == 255:
-        pyautogui.click(args['continue_x'],args['continue_y'], 3, 1.5)
+        pyautogui.click(args['continue_x'],args['continue_y'])
     else:
         print("{} 铃铛异常，准备修复~".format(
             time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())))
@@ -110,7 +110,9 @@ def Handling_exceptions(**args):
     pyautogui.click(args['main_x'], args['main_y'])
     # 点击空白 尝试恢复 click_none_x
     pyautogui.click(args['click_none_x'], args['click_none_y'])
-    pyautogui.click(args['quit_x'], args['quit_y'], 2, 2)
+    click_num(args['quit_x'], args['quit_y'], 2, 2)
+    # 点击退出或者主目录
+    pyautogui.click(args['exit_x'], args['exit_y'])
 
     content = "异常处理完成"
 
@@ -160,7 +162,7 @@ def Fight_together(wc, **args):
 
         # 刷完之后，点击 b 返回房间
         b_d_nc = 0
-        while b_d_nc <= 8:
+        while b_d_nc < 8:
             pyautogui.click(args['continue_x'], args['continue_y'])
             time.sleep(1.5)
             pyautogui.click(args['prepare_start_x'], args['prepare_start_y'])
@@ -169,3 +171,40 @@ def Fight_together(wc, **args):
         wc += 1
 
     return wc, result
+
+def Clean_pl(wc, **args):
+    _bool = True
+    # 清理体力，循环共斗
+    # 1. 点击 F 开始刷图
+    print("开始第 {} 次刷图,清理 Pl~".format(wc + 1))
+    write_log(content="开始第 {} 次刷图,清理 Pl~".format(wc + 1), **args)
+    pyautogui.click(args['pl_x'], args['pl_y'])
+    time.sleep(3)
+    f_cd = color_check(args['pl_x'], args['pl_y'])
+    print("f {},{} 位置颜色为：{}".format(args['pl_x'], args['pl_y'],f_cd))
+    write_log(content="f {},{} 位置颜色为：{}".format(args['pl_x'], args['pl_y'],f_cd), **args)
+    if f_cd == args['pl_color_red']:
+        print("疲劳已经刷完, 开始摇铃铛~")
+        # 取消刷房间，点f
+        pyautogui.click(args['pl_x'], args['pl_y'])
+        time.sleep(1)
+        # 退出房间
+        pyautogui.click(args['exit_x'], args['exit_y'])
+        time.sleep(1)
+        # 返回主界面 quit_x
+        pyautogui.click(args['quit_x'], args['quit_y'])
+        # 返回 False 值，如果是，则使用
+        _bool = False
+    else:
+        # 2. 判断如果刷完，点击 b 进行重新刷图，跳回 1
+        # 切换到模拟器
+        time.sleep(2)
+        # 等待房间内刷完
+        home_close(**args)
+        time.sleep(5)
+        # 点击 b 重复, 重新进入房间
+        click_num(args['continue_x'], args['continue_y'], 5, 2)
+        wc += 1
+        print("已经刷了 {} 次！".format(wc))
+
+    return wc, _bool
