@@ -35,14 +35,20 @@ def main():
 
     while True:
         if mode == "main":
+            print("开始摇铃铛~", end='')
+            print('\b' * len("开始摇铃铛~") * 2, end='', flush=True)
             wc = Bells_fighting(wc, **config)
         elif mode == "gd":
+            print("开始共斗~", end='')
+            print('\b' * len("开始共斗~") * 2, end='', flush=True)
             wc, result = Fight_together(wc, **config)
             if result:
                 pass
             else:
                 mode = "main"
         elif mode == "pl":
+            print("开始清理疲劳~", end='')
+            print('\b' * len("开始清理疲劳~") * 2, end='', flush=True)
             wc, result = Clean_pl(wc, **config)
             if result:
                 pass

@@ -164,7 +164,7 @@ def Fight_together(wc, **args):
         b_d_nc = 0
         while b_d_nc < 8:
             pyautogui.click(args['continue_x'], args['continue_y'])
-            time.sleep(1.5)
+            time.sleep(2)
             pyautogui.click(args['prepare_start_x'], args['prepare_start_y'])
             b_d_nc += 1
 
