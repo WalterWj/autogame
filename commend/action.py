@@ -39,7 +39,7 @@ def Bells_fighting(wc, **args):
         # print("g 位颜色：", g_cd)
         write_log(content="g 位颜色,x={}, y={} ：{}".format(
             args['cancel_x'], args['cancel_y'], g_cd), **args)
-        if g_cd == args["cancel_color_0"] or g_cd == args["cancel_color_1"] or  g_cd == args["cancel_color_3"]:
+        if g_cd == args["cancel_color_0"] or g_cd == args["cancel_color_1"] or g_cd == args["cancel_color_2"]:
             pyautogui.press('g')
             print("发现 g 位颜色异常，不进入游戏~,x={}, y={}".format(
                 args['cancel_x'], args['cancel_y']))
@@ -182,7 +182,7 @@ def Clean_pl(wc, **args):
     pyautogui.click(args['pl_x'], args['pl_y'])
     time.sleep(3)
     f_cd = color_check(args['pl_x'], args['pl_y'])
-    print("f {},{} 位置颜色为：{}".format(args['pl_x'], args['pl_y'], f_cd))
+    # print("f {},{} 位置颜色为：{}".format(args['pl_x'], args['pl_y'], f_cd))
     write_log(content="f {},{} 位置颜色为：{}".format(
         args['pl_x'], args['pl_y'], f_cd), **args)
     if f_cd == args['pl_color_red']:
