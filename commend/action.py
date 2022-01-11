@@ -39,7 +39,7 @@ def Bells_fighting(wc, **args):
         # print("g 位颜色：", g_cd)
         write_log(content="g 位颜色,x={}, y={} ：{}".format(
             args['cancel_x'], args['cancel_y'], g_cd), **args)
-        if g_cd == args["cancel_color_0"] or g_cd == args["cancel_color_0"]:
+        if g_cd == args["cancel_color_0"] or g_cd == args["cancel_color_1"] or  g_cd == args["cancel_color_3"]:
             pyautogui.press('g')
             print("发现 g 位颜色异常，不进入游戏~,x={}, y={}".format(
                 args['cancel_x'], args['cancel_y']))
