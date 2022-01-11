@@ -56,8 +56,8 @@ def Bells_fighting(wc, **args):
             if e_cd == args['join_color_0'] or e_cd == args['join_color_1']:
                 print("{}: e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
                     time.strftime("%Y-%m-%d %H:%M:%S",
-                                  time.localtime(), **args),
-                    args['join_x'], args['join_y'], e_cd))
+                                  time.localtime()),
+                    args['join_x'], args['join_y'], e_cd), **args)
                 write_log(content="e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
                     args['join_x'], args['join_y'], e_cd), **args)
                 # 再点击 e ，开启铃铛
@@ -81,7 +81,7 @@ def Bells_fighting(wc, **args):
     elif a_cd == 222:
         write_log(content="没有铃铛,已经刷了 {} 次".format(wc), **args)
     elif a_cd == 255:
-        pyautogui.click(args['continue_x'],args['continue_y'])
+        pyautogui.click(args['continue_x'], args['continue_y'])
     else:
         print("{} 铃铛异常，准备修复~".format(
             time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())))
@@ -112,7 +112,7 @@ def Handling_exceptions(**args):
     pyautogui.click(args['click_none_x'], args['click_none_y'])
     click_num(args['quit_x'], args['quit_y'], 2, 2)
     # 点击退出或者主目录
-    click_num.click(args['exit_x'], args['exit_y'], 2, 2)
+    click_num(args['exit_x'], args['exit_y'], 2, 2)
 
     content = "异常处理完成"
 
@@ -172,6 +172,7 @@ def Fight_together(wc, **args):
 
     return wc, result
 
+
 def Clean_pl(wc, **args):
     _bool = True
     # 清理体力，循环共斗
@@ -181,8 +182,9 @@ def Clean_pl(wc, **args):
     pyautogui.click(args['pl_x'], args['pl_y'])
     time.sleep(3)
     f_cd = color_check(args['pl_x'], args['pl_y'])
-    print("f {},{} 位置颜色为：{}".format(args['pl_x'], args['pl_y'],f_cd))
-    write_log(content="f {},{} 位置颜色为：{}".format(args['pl_x'], args['pl_y'],f_cd), **args)
+    print("f {},{} 位置颜色为：{}".format(args['pl_x'], args['pl_y'], f_cd))
+    write_log(content="f {},{} 位置颜色为：{}".format(
+        args['pl_x'], args['pl_y'], f_cd), **args)
     if f_cd == args['pl_color_red']:
         print("疲劳已经刷完, 开始摇铃铛~")
         # 取消刷房间，点f
