@@ -112,7 +112,7 @@ def Handling_exceptions(**args):
     pyautogui.click(args['click_none_x'], args['click_none_y'])
     click_num(args['quit_x'], args['quit_y'], 2, 2)
     # 点击退出或者主目录
-    pyautogui.click(args['exit_x'], args['exit_y'])
+    click_num.click(args['exit_x'], args['exit_y'], 2, 2)
 
     content = "异常处理完成"
 
