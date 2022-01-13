@@ -57,7 +57,7 @@ def Bells_fighting(wc, **args):
                 print("{}: e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
                     time.strftime("%Y-%m-%d %H:%M:%S",
                                   time.localtime()),
-                    args['join_x'], args['join_y'], e_cd), **args)
+                    args['join_x'], args['join_y'], e_cd))
                 write_log(content="e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
                     args['join_x'], args['join_y'], e_cd), **args)
                 # 再点击 e ，开启铃铛
@@ -78,9 +78,9 @@ def Bells_fighting(wc, **args):
             # 次数统计
             wc += 1
             print("auto game: {} 次成功".format(wc))
-    elif a_cd == 222:
+    elif a_cd == args['clock_color_nomal']:
         write_log(content="没有铃铛,已经刷了 {} 次".format(wc), **args)
-    elif a_cd == 255:
+    elif a_cd == args['clock_color_action_l'] and a_cd_below != args['clock_below_color_nomal']:
         pyautogui.click(args['continue_x'], args['continue_y'])
     else:
         print("{} 铃铛异常，准备修复~".format(
