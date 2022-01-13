@@ -75,6 +75,8 @@ def Bells_fighting(wc, **args):
             # 点击 8 次退出，退出房间
             click_num(args['quit_x'], args['quit_y'], 8)
             time.sleep(1)
+            # 点击一次主目录
+            click_num(args['main_x'], args['main_y'], 1)
             # 次数统计
             wc += 1
             print("auto game: {} 次成功".format(wc))
