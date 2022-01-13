@@ -23,10 +23,11 @@ def Bells_fighting(wc, **args):
     # if a_cd != args['clock_color_nomal'] and args[
     #         'clock_color_action_l'] <= a_cd <= args['clock_color_action_h']:
     if a_cd != args['clock_color_nomal'] and a_cd_below == args['clock_below_color_nomal']:
+        local_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         # 点击铃铛进入房间
         pyautogui.click(x=args['clock_x'], y=args['clock_y'])
         # pyautogui.press('a')
-        print("开始第 {} 次游戏！".format(wc + 1))
+        print("{} 开始第 {} 次游戏！".format(local_time, wc + 1))
         write_log(content="开始第 {} 次游戏！".format(wc + 1), **args)
         time.sleep(1)
         # 点击参加 -- e
