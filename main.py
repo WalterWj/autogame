@@ -34,9 +34,10 @@ def main():
     write_log(content="=======================开始游戏=======================", **log_config)
 
     while True:
+        local_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         if mode == "main":
-            print("开始摇铃铛~", end='')
-            print('\b' * len("开始摇铃铛~") * 2, end='', flush=True)
+            print("{} 开始摇铃铛~".format(local_time), end='')
+            print('\b' * len("{} 开始摇铃铛~".format(local_time)) * 2, end='', flush=True)
             wc = Bells_fighting(wc, **config)
         elif mode == "gd":
             print("开始共斗~", end='')

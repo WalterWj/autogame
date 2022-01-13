@@ -80,7 +80,7 @@ def Bells_fighting(wc, **args):
             print("auto game: {} 次成功".format(wc))
     elif a_cd == args['clock_color_nomal']:
         write_log(content="没有铃铛,已经刷了 {} 次".format(wc), **args)
-    elif a_cd == args['clock_color_action_l'] and a_cd_below != args['clock_below_color_nomal']:
+    elif a_cd == args['clock_color_action_l'] and a_cd_below == args['clock_below_color_nomal']:
         pyautogui.click(args['continue_x'], args['continue_y'])
     else:
         print("{} 铃铛异常，准备修复~".format(

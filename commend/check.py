@@ -60,7 +60,7 @@ def home_close(**args):
                 break
             # 如果房间解散，直接点击 g 返回界面
             if a_cd == args['clock_un_0'] or a_cd == args['clock_un_1']:
-                pyautogui.press('g')
+                pyautogui.click(args['cancel_x'], args['cancel_y'])
 
         numb = "已经游戏 {} s".format(3 * wc)
         print(numb, end='')
