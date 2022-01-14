@@ -22,7 +22,8 @@ def Bells_fighting(wc, **args):
     write_log(content="铃铛颜色:{}".format(a_cd), **args)
     # if a_cd != args['clock_color_nomal'] and args[
     #         'clock_color_action_l'] <= a_cd <= args['clock_color_action_h']:
-    if a_cd != args['clock_color_nomal'] and a_cd_below == args['clock_below_color_nomal']:
+    if a_cd != args['clock_color_nomal'] and a_cd_below == args[
+            'clock_below_color_nomal']:
         local_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         # 点击铃铛进入房间
         pyautogui.click(x=args['clock_x'], y=args['clock_y'])
@@ -39,13 +40,16 @@ def Bells_fighting(wc, **args):
         g_cd = color_check(args['cancel_x'], args['cancel_y'])
         # print("g 位颜色：", g_cd)
         write_log(content="g 位颜色,x={}, y={} ：{}".format(
-            args['cancel_x'], args['cancel_y'], g_cd), **args)
-        if g_cd == args["cancel_color_0"] or g_cd == args["cancel_color_1"] or g_cd == args["cancel_color_2"]:
-            pyautogui.press('g')
+            args['cancel_x'], args['cancel_y'], g_cd),
+                  **args)
+        if g_cd == args["cancel_color_0"] or g_cd == args[
+                "cancel_color_1"] or g_cd == args["cancel_color_2"]:
+            pyautogui.click(args['cancel_x'], args['cancel_y'])
             print("发现 g 位颜色异常，不进入游戏~,x={}, y={}".format(
                 args['cancel_x'], args['cancel_y']))
             write_log(content="发现 g 位颜色异常，不进入游戏~,x={}, y={}".format(
-                args['cancel_x'], args['cancel_y']), **args)
+                args['cancel_x'], args['cancel_y']),
+                      **args)
             # 点击 e 进入正常状态
             click_num(args['join_x'], args['join_y'], 1)
             time.sleep(5)
@@ -56,11 +60,11 @@ def Bells_fighting(wc, **args):
             write_log(content='e 位置颜色为：{}'.format(e_cd), **args)
             if e_cd == args['join_color_0'] or e_cd == args['join_color_1']:
                 print("{}: e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
-                    time.strftime("%Y-%m-%d %H:%M:%S",
-                                  time.localtime()),
+                    time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                     args['join_x'], args['join_y'], e_cd))
                 write_log(content="e 位置异常，可能铃铛关闭，进行修复，{}, {} 位置颜色为：{}".format(
-                    args['join_x'], args['join_y'], e_cd), **args)
+                    args['join_x'], args['join_y'], e_cd),
+                          **args)
                 # 再点击 e ，开启铃铛
                 pyautogui.click(args['join_x'], args['join_y'])
                 time.sleep(1)
@@ -71,7 +75,7 @@ def Bells_fighting(wc, **args):
             pyautogui.click(args['prepare_start_x'], args['prepare_start_y'])
             # 等待房间内刷完
             _time = home_close(**args)
-            print("刷图耗时：{}~".format(_time))
+            print("刷图耗时: {}s~".format(_time))
             time.sleep(3)
             # 点击 8 次退出，退出房间
             click_num(args['quit_x'], args['quit_y'], 8)
@@ -83,7 +87,8 @@ def Bells_fighting(wc, **args):
             print("auto game: {} 次成功".format(wc))
     elif a_cd == args['clock_color_nomal']:
         write_log(content="没有铃铛,已经刷了 {} 次".format(wc), **args)
-    elif a_cd == args['clock_color_action_l'] and a_cd_below != args['clock_below_color_nomal']:
+    elif a_cd == args['clock_color_action_l'] and a_cd_below != args[
+            'clock_below_color_nomal']:
         pass
         # pyautogui.click(args['continue_x'], args['continue_y'])
     else:
@@ -122,6 +127,7 @@ def Handling_exceptions(**args):
 
     return content
 
+
 # 共斗
 
 
@@ -130,16 +136,20 @@ def Fight_together(wc, **args):
     _nc = 0
     # 如果铃铛为 222，说明在房间内
     bill_color = color_check(args['clock_x'], args['clock_y'])
-    write_log(content="第 {} 次捕获铃铛颜色: {},{}: {}".format(
-        _nc, args['clock_x'], args['clock_y'], bill_color), **args)
+    write_log(content="第 {} 次捕获铃铛颜色: {},{}: {}".format(_nc, args['clock_x'],
+                                                       args['clock_y'],
+                                                       bill_color),
+              **args)
     # 铃铛下面位置颜色
-    bill_below_color = color_check(
-        args['clock_below_x'], args['clock_below_y'])
+    bill_below_color = color_check(args['clock_below_x'],
+                                   args['clock_below_y'])
     write_log(content="第 {} 次捕获铃铛颜下面色: {},{}: {}".format(
-        _nc, args['clock_below_x'], args['clock_below_y'], bill_below_color), **args)
+        _nc, args['clock_below_x'], args['clock_below_y'], bill_below_color),
+              **args)
     # 初始化 result 结果
     result = True
-    if bill_color != args['clock_color_nomal'] and bill_below_color == args['clock_below_color_nomal']:
+    if bill_color != args['clock_color_nomal'] and bill_below_color == args[
+            'clock_below_color_nomal']:
         result = False
     else:
         while bill_color == args['clock_color_nomal']:
@@ -157,7 +167,8 @@ def Fight_together(wc, **args):
             bill_color = color_check(args['clock_x'], args['clock_y'])
             _nc += 1
             write_log(content="第 {} 次捕获铃铛颜色: {},{}: {}".format(
-                _nc, args['clock_x'], args['clock_y'], bill_color), **args)
+                _nc, args['clock_x'], args['clock_y'], bill_color),
+                      **args)
 
     # 当正常进入房间后，开始共斗
     if result:
@@ -187,8 +198,9 @@ def Clean_pl(wc, **args):
     time.sleep(3)
     f_cd = color_check(args['pl_x'], args['pl_y'])
     # print("f {},{} 位置颜色为：{}".format(args['pl_x'], args['pl_y'], f_cd))
-    write_log(content="f {},{} 位置颜色为：{}".format(
-        args['pl_x'], args['pl_y'], f_cd), **args)
+    write_log(content="f {},{} 位置颜色为：{}".format(args['pl_x'], args['pl_y'],
+                                                f_cd),
+              **args)
     if f_cd == args['pl_color_red']:
         print("疲劳已经刷完, 开始摇铃铛~")
         # 取消刷房间，点f
@@ -196,7 +208,7 @@ def Clean_pl(wc, **args):
         time.sleep(1)
         # 退出房间
         pyautogui.click(args['exit_x'], args['exit_y'])
-        time.sleep(1)
+        time.sleep(2)
         # 返回主界面 quit_x
         pyautogui.click(args['quit_x'], args['quit_y'])
         # 返回 False 值，如果是，则使用

@@ -26,10 +26,18 @@ def home_close(**args):
         # 控制时间，如果超过一定时间也会 break
         c_d = color_check(args['quit_x'], args['quit_y'])
         # print("捕获继续位置颜色：{},{},{}".format(x, y, c_d))
-        write_log(content="捕获继续位置颜色：{},{},{}".format(
-            args['quit_x'], args['quit_y'], c_d), **args)
-        # 控制 41 像素连续
-        if c_d == args['quit_color_nomal']:
+        write_log(content="捕获继续位置颜色：{},{},{}".format(args['quit_x'],
+                                                     args['quit_y'], c_d),
+                  **args)
+        # 判断 g 处颜色，避免房间中解散游戏
+        g_cd = color_check(args['cancel_x'], args['cancel_y'])
+        write_log(content="g 位颜色,x={}, y={} ：{}".format(
+            args['cancel_x'], args['cancel_y'], g_cd),
+                  **args)
+        # 控制 41 像素连续和 g 出颜色
+        if c_d == args['quit_color_nomal'] or g_cd == args[
+                "cancel_color_0"] or g_cd == args[
+                    "cancel_color_1"] or g_cd == args["cancel_color_2"]:
             nc += 1
         else:
             nc = 0
@@ -69,8 +77,9 @@ def home_close(**args):
     print("完成刷图")
     write_log(content="完成刷图", **args)
     print("--- cost {} seconds ---".format((time.time() - start_time)))
-    write_log(content="--- cost {} seconds ---".format((time.time() -
-                                                        start_time)), **args)
+    write_log(content="--- cost {} seconds ---".format(
+        (time.time() - start_time)),
+              **args)
 
     # 返回耗时
     return 3 * wc
