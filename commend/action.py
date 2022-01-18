@@ -106,6 +106,8 @@ def Handling_exceptions(**args):
     time.sleep(1)
     # 点击主目录 尝试恢复
     pyautogui.click(args['main_x'], args['main_y'])
+    time.sleep(1)
+    pyautogui.click(args['cancel_1_x'], args['cancel_1_y'])
     # 点击 g, c 尝试恢复
     time.sleep(2)
     pyautogui.click(args['cancel_x'], args['cancel_y'])
