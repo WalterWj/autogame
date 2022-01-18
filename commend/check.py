@@ -22,7 +22,7 @@ def home_close(**args):
     nc = 0
     while True:
         # 3s 检查一次
-        time.sleep(3)
+        time.sleep(2)
         # 控制时间，如果超过一定时间也会 break
         c_d = color_check(args['quit_x'], args['quit_y'])
         # print("捕获继续位置颜色：{},{},{}".format(x, y, c_d))
@@ -42,7 +42,7 @@ def home_close(**args):
         else:
             nc = 0
         # 连续检测次数 3 次
-        if nc >= 3:
+        if nc > 4:
             # print(c_d, "完成刷图~")
             write_log(content="{} 完成刷图~".format(c_d), **args)
             break
