@@ -70,7 +70,7 @@ def home_close(**args):
             if a_cd == args['clock_un_0'] or a_cd == args['clock_un_1']:
                 pyautogui.click(args['cancel_x'], args['cancel_y'])
 
-        numb = "已经游戏 {} s".format(3 * wc)
+        numb = "已经游戏 {} s".format(2 * wc)
         print(numb, end='')
         print('\b' * len(numb) * 2, end='', flush=True)
 
@@ -82,4 +82,4 @@ def home_close(**args):
               **args)
 
     # 返回耗时
-    return 3 * wc
+    return 2 * wc
