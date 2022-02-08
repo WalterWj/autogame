@@ -37,7 +37,7 @@ def config_set(config, distance=0):
         try:
             # key 以 _x 结尾需要处理
             if key.endswith('_x'):
-                config[key] = int(config[key]) - int(distance) * 596
+                config[key] = int(config[key]) - int(distance) * 593
             else:
                 config[key] = int(config[key])
         except ValueError:

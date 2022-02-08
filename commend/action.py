@@ -20,10 +20,11 @@ def Bells_fighting(wc, **args):
     a_cd_below = color_check(args['clock_below_x'], args['clock_below_y'])
     # print("铃铛颜色:{}".format(a_cd))
     write_log(content="铃铛颜色:{}".format(a_cd), **args)
-    # if a_cd != args['clock_color_nomal'] and args[
-    #         'clock_color_action_l'] <= a_cd <= args['clock_color_action_h']:
-    if a_cd != args['clock_color_nomal'] and a_cd_below == args[
-            'clock_below_color_nomal']:
+    write_log(content="铃铛下面颜色:{}".format(a_cd_below), **args)
+    if a_cd != args['clock_color_nomal'] and args[
+            'clock_color_action_l'] <= a_cd <= args['clock_color_action_h']:
+    # if a_cd != args['clock_color_nomal'] and a_cd_below == args[
+    #         'clock_below_color_nomal']:
         local_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         # 点击铃铛进入房间
         pyautogui.click(x=args['clock_x'], y=args['clock_y'])
@@ -87,7 +88,7 @@ def Bells_fighting(wc, **args):
             print("auto game: {} 次成功".format(wc))
     elif a_cd == args['clock_color_nomal']:
         write_log(content="没有铃铛,已经刷了 {} 次".format(wc), **args)
-    elif a_cd == args['clock_color_action_l'] and a_cd_below != args[
+    elif a_cd == args['clock_color_action_l'] or a_cd_below == args[
             'clock_below_color_nomal']:
         pass
         # pyautogui.click(args['continue_x'], args['continue_y'])

@@ -58,7 +58,7 @@ def home_close(**args):
             pass
         # 60s 后检查如果铃铛正常，也退出
         # 铃铛颜色
-        if wc >= 20:
+        if wc >= 30:
             time.sleep(1)
             a_cd = color_check(x=args['clock_x'], y=args['clock_y'])
             # print("铃铛颜色:{}".format(a_cd))
