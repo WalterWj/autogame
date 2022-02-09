@@ -51,14 +51,14 @@ def home_close(**args):
             write_log(content="继续检查".format(c_d), **args)
         wc += 1
         # 过了 8min，还没有退出
-        if wc >= 160:
+        if wc >= 240:
             write_log(content="Game abnormal~", **args)
             break
         else:
             pass
         # 60s 后检查如果铃铛正常，也退出
         # 铃铛颜色
-        if wc >= 30:
+        if wc >= 45:
             time.sleep(1)
             a_cd = color_check(x=args['clock_x'], y=args['clock_y'])
             # print("铃铛颜色:{}".format(a_cd))
